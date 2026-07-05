@@ -20,7 +20,7 @@ export function IntroductionScreen({ contestant, onContinue }: IntroductionScree
   const [pausedSafeHavens, setPausedSafeHavens] = useState<Set<number>>(new Set());
   const [ladderAudio] = useState(() => {
     if (typeof window !== "undefined") {
-      const audio = new Audio("/ladder.mp3");
+      const audio = new Audio("/ladder1.mp3");
       audio.volume = 0.6;
       return audio;
     }
