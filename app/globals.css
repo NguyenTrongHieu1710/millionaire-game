@@ -1,0 +1,329 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ============================================================
+   Who Wants to Be a Millionaire? — Animations & Effects
+   ============================================================ */
+
+/* Fade in */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Fade in upward */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Logo scale up */
+@keyframes logo-scale-up {
+  0% { opacity: 0; transform: scale(0.7); }
+  50% { opacity: 1; }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Logo glow effect */
+.logo-glow {
+  filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.5)) drop-shadow(0 0 40px rgba(212, 175, 55, 0.2));
+  animation: logo-glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes logo-glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.5)) drop-shadow(0 0 40px rgba(212, 175, 55, 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.7)) drop-shadow(0 0 60px rgba(212, 175, 55, 0.3));
+  }
+}
+
+/* Let's Play button blink */
+@keyframes lets-play-blink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.98); }
+}
+
+/* Answer pulse (selected state) */
+@keyframes answer-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(243, 141, 5, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(243, 141, 5, 0.8), 0 0 60px rgba(243, 141, 5, 0.4);
+  }
+}
+
+/* Answer glow (correct state) */
+@keyframes answer-glow {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1.02); }
+}
+
+/* Answer shake (wrong state) */
+@keyframes answer-shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-6px); }
+  20%, 40%, 60%, 80% { transform: translateX(6px); }
+}
+
+/* Video progress bar */
+@keyframes video-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Fade to black */
+@keyframes fade-to-black {
+  from { filter: brightness(1); }
+  to { filter: brightness(0.5); }
+}
+
+/* Confetti fall */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-20px) rotate(0deg);
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Menu / welcome light rays */
+.menu-light-rays,
+.welcome-light-rays,
+.win-light-rays {
+  background:
+    conic-gradient(
+      from 0deg at 50% 50%,
+      transparent 0deg,
+      rgba(212, 175, 55, 0.08) 5deg,
+      transparent 10deg,
+      transparent 30deg,
+      rgba(65, 105, 225, 0.06) 35deg,
+      transparent 40deg,
+      transparent 80deg,
+      rgba(212, 175, 55, 0.06) 85deg,
+      transparent 90deg,
+      transparent 130deg,
+      rgba(65, 105, 225, 0.05) 135deg,
+      transparent 140deg,
+      transparent 180deg,
+      rgba(212, 175, 55, 0.08) 185deg,
+      transparent 190deg,
+      transparent 230deg,
+      rgba(65, 105, 225, 0.06) 235deg,
+      transparent 240deg,
+      transparent 280deg,
+      rgba(212, 175, 55, 0.06) 285deg,
+      transparent 290deg,
+      transparent 330deg,
+      rgba(65, 105, 225, 0.05) 335deg,
+      transparent 340deg
+    );
+  animation: light-rays-rotate 60s linear infinite;
+}
+
+@keyframes light-rays-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Particles — small dots */
+.menu-particles,
+.welcome-particles {
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.6) 1px, transparent 2px),
+    radial-gradient(circle at 80% 30%, rgba(212, 175, 55, 0.5) 1px, transparent 2px),
+    radial-gradient(circle at 30% 60%, rgba(255, 255, 255, 0.4) 1px, transparent 2px),
+    radial-gradient(circle at 70% 75%, rgba(0, 191, 255, 0.5) 1px, transparent 2px),
+    radial-gradient(circle at 50% 90%, rgba(255, 215, 0, 0.4) 1px, transparent 2px),
+    radial-gradient(circle at 15% 85%, rgba(255, 255, 255, 0.3) 1px, transparent 2px),
+    radial-gradient(circle at 90% 50%, rgba(212, 175, 55, 0.4) 1px, transparent 2px);
+  background-size: 100% 100%;
+  animation: particles-twinkle 4s ease-in-out infinite;
+}
+
+@keyframes particles-twinkle {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Money ladder current row pulse */
+.ladder-row-current {
+  animation: ladder-pulse 2s ease-in-out infinite;
+}
+
+@keyframes ladder-pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.4) inset;
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(212, 175, 55, 0.7) inset;
+  }
+}
+
+/* Input focus glow */
+.contestant-input:focus {
+  border-color: #FFA500 !important;
+  box-shadow: 0 0 16px rgba(212, 175, 55, 0.4);
+}
+
+/* Question banner entrance */
+.question-banner {
+  animation: question-slide-down 0.4s ease-out;
+}
+
+@keyframes question-slide-down {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Disable text selection on game UI */
+.menu-screen,
+.welcome-screen,
+.contestant-intro,
+.contestant-form,
+.stage-reveal,
+.gameplay-screen,
+.walk-away,
+.win-screen,
+.lose-screen,
+.outro-screen,
+.video-placeholder {
+  user-select: none;
+  -webkit-user-select: none;
+}
+

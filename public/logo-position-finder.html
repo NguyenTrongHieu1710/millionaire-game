@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Logo Position Finder</title>
+    <style>
+        body { margin: 0; padding: 0; background: #000; color: #fff; font-family: monospace; }
+        .container { 
+            position: relative; 
+            width: 1920px; 
+            height: 1080px; 
+            margin: 20px auto;
+            border: 2px solid #333;
+        }
+        .bg { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain;
+            position: absolute;
+        }
+        .logo { 
+            position: absolute;
+            width: 280px;
+            border: 2px solid #ff0000;
+            box-shadow: 0 0 20px rgba(255,0,0,0.5);
+            pointer-events: none;
+        }
+        .controls { 
+            position: fixed; 
+            top: 10px; 
+            right: 10px; 
+            background: rgba(0,0,0,0.95); 
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            width: 300px;
+        }
+        .control-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #4CAF50;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            background: #222;
+            border: 1px solid #444;
+            color: #fff;
+            font-size: 14px;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 15px;
+            background: #1a1a1a;
+            border: 1px solid #4CAF50;
+            border-radius: 4px;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .hint {
+            color: #888;
+            font-size: 11px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <h3 style="margin-top: 0; color: #4CAF50;">🎯 Logo Position Finder</h3>
+        
+        <div class="control-group">
+            <label>Top (px)</label>
+            <input id="top" type="number" value="30" step="1">
+            <div class="hint">Distance from top edge</div>
+        </div>
+        
+        <div class="control-group">
+            <label>Left (%)</label>
+            <input id="left" type="number" value="50" step="0.1">
+            <div class="hint">Horizontal position (% of width)</div>
+        </div>
+        
+        <div class="control-group">
+            <label>Transform X (%)</label>
+            <input id="tx" type="number" value="-50" step="0.1">
+            <div class="hint">Horizontal offset (-50 = center)</div>
+        </div>
+        
+        <div class="control-group">
+            <label>Transform Y (px or unitless)</label>
+            <input id="ty" type="text" value="0.6">
+            <div class="hint">Vertical offset (0.6 = 0.6px down)</div>
+        </div>
+        
+        <button onclick="updatePosition()">🔄 Update Position</button>
+        <button onclick="copyCSS()" style="background: #2196F3;">📋 Copy CSS</button>
+        
+        <div class="output" id="output"></div>
+    </div>
+    
+    <div class="container">
+        <img class="bg" src="/end-background.png" alt="Background">
+        <img class="logo" id="logo" src="/icons/Main Logo Cropped.png" alt="Logo">
+    </div>
+
+    <script>
+        function updatePosition() {
+            const logo = document.getElementById('logo');
+            const top = document.getElementById('top').value;
+            const left = document.getElementById('left').value;
+            const tx = document.getElementById('tx').value;
+            const ty = document.getElementById('ty').value;
+            
+            logo.style.top = top + 'px';
+            logo.style.left = left + '%';
+            logo.style.transform = `translate(${tx}%, ${ty})`;
+            
+            document.getElementById('output').innerHTML = `
+<strong>CSS for page.tsx:</strong><br><br>
+top: logoMoveUp ? "20px" : "${top}px",<br>
+transform: logoMoveUp<br>
+  ? "translate(-50%, 0)"<br>
+  : "translate(${tx}%, ${ty})",
+            `.trim();
+        }
+        
+        function copyCSS() {
+            const top = document.getElementById('top').value;
+            const tx = document.getElementById('tx').value;
+            const ty = document.getElementById('ty').value;
+            
+            const css = `top: logoMoveUp ? "20px" : "${top}px",
+transform: logoMoveUp ? "translate(-50%, 0)" : "translate(${tx}%, ${ty})",`;
+            
+            navigator.clipboard.writeText(css);
+            alert('✅ CSS copied to clipboard!');
+        }
+        
+        // Initialize on load
+        updatePosition();
+        
+        // Update on input change
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', updatePosition);
+        });
+    </script>
+</body>
+</html>
