@@ -43,6 +43,8 @@ lib/millionaire/    # Logic thuần, không JSX — dễ test/tái dùng
   settings.ts       # Cài đặt (timer, volume) + timeLimitForLevel()
   audio.ts          # AudioManager singleton: SFX Web Audio + phát nhạc file
   lifelines.ts      # 3 lifelines + giả lập poll khán giả
+  skip.ts           # Hệ thống skip trung tâm: màn hình đăng ký handler cho đoạn
+                    # đang chạy; Space/nút SKIP kích hoạt (one-shot + cooldown 400ms)
   state.ts          # Types: ScreenId, ContestantInfo, AnswerState
 components/millionaire/
   GameplayScreen.tsx    # ❗ Màn chơi chính: câu hỏi, đáp án, lifelines, timer, reveal
@@ -54,6 +56,7 @@ components/millionaire/
   CustomizeScreen.tsx   # Quản lý bộ câu hỏi + QuestionEditor.tsx (form 1 câu)
   HistoryScreen.tsx     # Bảng lịch sử + thống kê
   SettingsModal.tsx     # Modal cài đặt
+  SkipControls.tsx      # UI skip toàn cục: phím Space + nút góc + hint (render 1 lần trong page.tsx)
   IntroductionScreen.tsx # Animation giới thiệu thang tiền trước khi chơi
   EndScreen.tsx         # 3 màn kết: win / lose / walk_away
   # Màn phụ trong luồng intro: WelcomeScreen, ContestantIntroScreen, ContestantForm,
@@ -108,13 +111,15 @@ npx tsc --noEmit   # typecheck riêng
 
 **Đã hoàn thành:**
 - Luồng chơi đầy đủ: intro → nhập tên → thang tiền → chơi → kết thúc (win/lose/walk away/timeout)
-- 3 lifelines: 50:50, Ask the Audience (poll giả lập), Double Dip
+- 3 lifelines: 50:50, Ask the Audience (poll giả lập), Double Dip — **50:50 và Double Dip không dùng chung trong 1 câu** (bị chặn kèm thông báo, không tiêu hao quyền)
+- Nút Return giữa gameplay = "về menu" có confirm, huỷ lượt chơi hiện tại (các màn khác lùi 1 bước như cũ)
 - Tự soạn bộ câu hỏi (CRUD + export/import JSON, 3–30 câu)
 - Thang tiền + safe havens động theo số câu
 - Lịch sử lượt chơi + thống kê
 - Đếm ngược có phạt (tắt được), cài đặt volume
 - SFX Web Audio + hiệu ứng hồi hộp (dim/spotlight/shake/flash)
 - Responsive desktop/tablet/mobile, portrait + landscape; phím tắt A-D/Enter/Esc
+- Skip (Space/nút SKIP): tua nhanh video (mute + 16×), fast-forward animation thang tiền, bỏ qua reveal kết quả — mỗi lần chỉ skip đúng đoạn đang chạy, không skip được lúc chờ trả lời
 
 **Backlog / chưa làm:**
 - Thay SFX tổng hợp bằng file âm thanh thật
